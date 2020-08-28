@@ -30,25 +30,25 @@
             <td>
                 <input ng-model="veiculo.cidade.nome" class="cidades{{$index}}" ng-change="changeId($index,veiculo)"
                     name="cidade{{$index}}" autocomplete="nope" type="text" required value="{{veiculos.cidade.nome}}"
-                    ng-disabled="isDisabled">
+                    ng-disabled="veiculo.isDisabled">
             </td>
             <td>
                 <input ng-model="veiculo.km_rodado" type="number" required value="{{veiculo.km_rodado}}"
-                    ng-disabled="isDisabled">
+                    ng-disabled="veiculo.isDisabled">
             </td>
             <td>
-                <input ng-model="veiculo.email" type="text" required value="{{veiculo.email}}" ng-disabled="isDisabled">
+                <input ng-model="veiculo.email" type="text" required value="{{veiculo.email}}" ng-disabled="veiculo.isDisabled">
             </td>
-            <td>
-                <button ng-if="isDisabled === false" ng-click="alterarVeiculo(veiculo)"
+            <td  ng-if="veiculo.isDisabled === false">
+                <button  ng-click="alterarVeiculo(veiculo)"
                     class="btn btn-success btn-block mb-1">Salvar</button>
             </td>
-            <td>
-                <button ng-if="isDisabled === true" ng-click="remover(veiculo)"
+            <td  ng-if="veiculo.isDisabled === true">
+                <button  ng-click="remover(veiculo)"
                     class="btn btn-danger btn-block mb-1">Remover</button>
             </td>
             <td>
-                <button ng-click="botaoAlterar()" class="btn btn-primary btn-block mb-1">Editar</button>
+                <button ng-click="veiculo.isDisabled = !veiculo.isDisabled" class="btn btn-primary btn-block mb-1">Editar</button>
             </td>
 
         </tr>
@@ -66,14 +66,14 @@
             </div>
             <div class="modal-body">
                 <p class="alert alert-{{mensagem.class}}" ng-show="mensagem.texto.length">{{mensagem.texto}}</p>
-                <form novalidate name="formulario-novo" class="formulario-cadastro"
-                    ng-submit="submeter(veiculo,'formulario-novo')">
+                <form novalidate name="form" class="formulario-cadastro"
+                    ng-submit="submeter(veiculo,'form')">
                     <div class="col-md-12">
                         <h3>veiculo</h3>
                         <div class="form-group">
                             <label>Email proprietário</label>
                             <input ng-model="veiculo.email" name="email" class="form-control" type="email" required>
-                            <span ng-show="formulario.$submitted && formulario.email.$error.required"
+                            <span ng-show="form.$submitted && form.email.$error.required"
                                 class="form-control alert-danger">
                                 campo de Email proprietário é obrigatório
                             </span>
@@ -85,7 +85,7 @@
                                     ng-model="veiculo.cidade.nome" name="cidade" class="form-control cidade"
                                     autocomplete="nope" required>
                             </div>
-                            <span ng-show="formulario.$submitted && formulario.cidade.$error.required"
+                            <span ng-show="form.$submitted && form.cidade.$error.required"
                                 class="form-control alert-danger">
                                 campo de Cidade é obrigatório
                             </span>
@@ -94,7 +94,7 @@
                             <div class="form-group">
                                 <label>Placa</label>
                                 <input ng-model="veiculo.placa" name="placa" class="form-control" required>
-                                <span ng-show="formulario.$submitted && formulario.placa.$error.required"
+                                <span ng-show="form.$submitted && form.placa.$error.required"
                                     class="form-control alert-danger">
                                     campo de Placa é obrigatório
                                 </span>
@@ -103,7 +103,7 @@
                                 <label>Km rodado</label>
                                 <input ng-model="veiculo.km_rodado" name="km_rodado" class="form-control" type="number"
                                     required>
-                                <span ng-show="formulario.$submitted && formulario.km_rodado.$error.required"
+                                <span ng-show="form.$submitted && form.km_rodado.$error.required"
                                     class="form-control alert-danger">
                                     campo de km rodado é obrigatório
                                 </span>
@@ -113,7 +113,7 @@
                             <button type="button" class="btn btn-secondary" ng-click="veiculo = {}"
                                 data-dismiss="modal">Reset</button>
                             <button type="submit" class="btn btn-primary"
-                                ng-disabled="formulario.$invalid">Salvar</button>
+                                ng-disabled="form.$invalid">Salvar</button>
                         </div>
                     </div>
                 </form>

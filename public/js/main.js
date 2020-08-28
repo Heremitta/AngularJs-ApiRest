@@ -7,10 +7,6 @@ var app = angular.module('ProjetoTeste', ['minhasDiretivas','ngAnimate','ngRoute
         templateUrl:'partials/veiculos.html',
         controller:'VeiculosController'
     })
-    $routeProvider.when('/veiculos/novo',{
-        templateUrl:'partials/veiculos-novo.html',
-        controller:'VeiculosCadastroController'
-    })
     
     $routeProvider.otherwise({redirectTo:'/veiculos'});
 })

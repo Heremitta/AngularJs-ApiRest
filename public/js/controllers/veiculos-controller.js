@@ -29,7 +29,6 @@ angular.module('ProjetoTeste').controller('VeiculosController', function ($scope
     }, function (erro) {
         console.log(erro)
     })
-    console.log($scope.veiculos)
     $scope.renderizaVeiculos = function () {
         recursoVeiculo.query(function (veiculos) {
             for (var i = 0; i < veiculos.length; i++) {
@@ -38,6 +37,7 @@ angular.module('ProjetoTeste').controller('VeiculosController', function ($scope
                 for (var j = 0; j < todasCidades.length; j++) {
                     var cidadeDoArray = $scope.removeAcentos(todasCidades[j].id);
                     var cidadeDoVeiculo = $scope.removeAcentos(veiculos[i].cidade);
+                    veiculos[i].isDisabled = true
                     if (Object.is(cidadeDoArray, cidadeDoVeiculo)) {
                         veiculos[i].cidade = angular.copy(todasCidades[j]);
                         achou = true
@@ -82,9 +82,6 @@ angular.module('ProjetoTeste').controller('VeiculosController', function ($scope
         vec.deletar(veiculo.id, function (veiculo) {
             $scope.mensagem.texto = 'Veiculo com placa ' + placa + ' foi removido com sucesso!';
             $scope.mensagem.class = "info"
-            console.log($scope.veiculos)
-            console.log(veiculo)
-            console.log(indiceVeiculo)
             $scope.veiculos.splice(indiceVeiculo, 1);
         }, function (erro) {
             console.log(erro);
@@ -116,10 +113,10 @@ angular.module('ProjetoTeste').controller('VeiculosController', function ($scope
                 method: "PATCH"
             }
         })
-        console.log(veiculo)
+        delete veiculo.isDisabled;
         vec.alterar(veiculo, function (result) {
-            console.log(result)
             veiculo.cidade = cidade;
+            veiculo.isDisabled = true
             $scope.mensagem.texto = 'Veiculo de placa ' + veiculo.placa + ' foi alterado com sucesso!';
             $scope.mensagem.class = "info";
         }, function (erro) {
@@ -175,15 +172,14 @@ angular.module('ProjetoTeste').controller('VeiculosController', function ($scope
                 }
             }
             veiculo.cidade = $scope.veiculo.cidade;
-            console.log(veiculo)
             recursoVeiculo.cadastrar(veiculo, function (result) {
                 veiculo.cidade = cidadeVeiculo;
-
+                veiculo.isDisabled = true
                 veiculo.id = result.id;
                 $scope.veiculos.push(veiculo);
                 $scope.mensagem.texto = 'Veiculo de placa ' + veiculo.placa + ' Cadastrado com sucesso!';
                 $scope.mensagem.class = "info";
-                setTimeout(function () { $scope.resetForm(formulario); }, 3000);
+                setTimeout(function () { $scope.resetForm(formulario); }, 2000);
 
             }, function (erro) {
                 console.log(erro);
@@ -198,7 +194,7 @@ angular.module('ProjetoTeste').controller('VeiculosController', function ($scope
         form.$setPristine();
         $scope.mensagem.texto = '';
         $scope.veiculo = {}
-        document.querySelector(".modal").click()
+        document.querySelector(".modal").classList.toggle("hidden")
     }
     $scope.buscaCidadePorNome = function (cidade) {
         var buscaCidade = $resource(config.URL_REQUISICAO_CIDADES + "?q=:cidadeNome", { cidadeNome: cidade }, {
@@ -252,13 +248,13 @@ angular.module('ProjetoTeste').controller('VeiculosController', function ($scope
             $scope.mensagem.class = "info"
         }
         if (resposta == 0) {
-            $scope.mensagem = "Placa inválida, tente novamente!"
+            $scope.mensagem.texto = "Placa inválida, tente novamente!"
+            $scope.mensagem.class= "danger"
             setTimeout(function () { $scope.mensagem = ""; }, 3000);
         }
         return resposta;
     }
     $scope.validaEmail = function (field) {
-        console.log(field)
         var usuario = field.substring(0, field.indexOf("@"));
         var dominio = field.substring(field.indexOf("@") + 1, field.length);
         if ((usuario.length >= 1) &&
@@ -296,7 +292,6 @@ angular.module('ProjetoTeste').controller('VeiculosController', function ($scope
             cidades.push(e.nome)
         })
         autoComplete(document.querySelector("#cidade"), cidades, obj);
-        console.log(document.querySelector("#cidade").value)
 
     }
 });
