@@ -1,0 +1,40 @@
+.painel-animado.ng-leave-active{
+    transform: scale(0.1);
+}
+.painel-animado{
+    transition: transform 0.8s;
+}
+.container-formulario{
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+}
+.formulario-cadastro{
+    width:80%;
+    display: flex;
+    margin: 0 auto;
+    justify-content: center;
+}
+.dupla{
+    display:flex;
+    justify-content: center;
+}
+.modal{
+    background: rgba(0, 0, 0, 0.4);
+    width: 100vw;
+    height: 100%;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    transition: all .3s ease-in-out;
+}
+.hidden{
+    opacity: 0;
+    display: none;
+}
+.close span{
+    pointer-events: none;
+}

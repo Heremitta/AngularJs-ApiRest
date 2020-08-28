@@ -1,0 +1,53 @@
+<div class="page-header text-center">
+    <h1>Cadastrar novo veiculo</h1>
+    <p class="alert alert-info" ng-show="mensagem.length">{{mensagem}}</p>
+    <div class="container-formulario row d-flex align-items-center justify-content-center">
+        <form novalidate name="formulario" class="col-md-4 formulario-cadastro" ng-submit="submeter(veiculo)">
+            <div class="col-md-12">
+                <h3>veiculo</h3>
+                <div class="form-group">
+                    <label>Email proprietário</label>
+                    <input ng-model="veiculo.email" name="email" class="form-control" type="email" required>
+                    <span ng-show="formulario.$submitted && formulario.email.$error.required"
+                        class="form-control alert-danger">
+                        campo de Email proprietário é obrigatório
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label>Cidade</label>
+                    <div class="autocomplete">
+                        <input id="cidade" ng-change="change(todasCidades)" ng-model="veiculo.cidade.nome" name="cidade" class="form-control cidade" autocomplete="nope" required>
+                    </div>
+                    <span ng-show="formulario.$submitted && formulario.cidade.$error.required"
+                        class="form-control alert-danger">
+                        campo de Cidade é obrigatório
+                    </span>
+                </div>
+                <div class="dupla">
+                    <div class="form-group">
+                        <label>Placa</label>
+                        <input ng-model="veiculo.placa" name="placa" class="form-control" required>
+                        <span ng-show="formulario.$submitted && formulario.placa.$error.required"
+                            class="form-control alert-danger">
+                            campo de Placa é obrigatório
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <label>Km rodado</label>
+                        <input ng-model="veiculo.km_rodado" name="km_rodado" class="form-control" type="number"
+                            required>
+                        <span ng-show="formulario.$submitted && formulario.km_rodado.$error.required"
+                            class="form-control alert-danger">
+                            campo de km rodado é obrigatório
+                        </span>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary" ng-disabled="formulario.$invalid">
+                    Enviar
+                </button>
+                <a href="/veiculos" class="btn btn-primary" meu-focus>Voltar</a>
+                <hr>
+            </div>
+        </form>
+    </div>
+</div>
