@@ -1,7 +1,7 @@
 # AngularJs-ApiRest
  Utilizando AngularJS para consumir Api da SinerSoft
 
-
+<hr>
 ## Como utilizar
  - Ter o NodeJs instalado
  - Na pasta raiz dar o comando npm instal
