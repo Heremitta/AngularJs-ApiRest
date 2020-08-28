@@ -1,5 +1,5 @@
 # AngularJs-ApiRest
- Utilizando AngularJS para consumir Api da SiderCorp
+ Utilizando AngularJS para consumir Api da SinerSoft
 
 
 # Como utilizar
